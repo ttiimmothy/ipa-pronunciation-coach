@@ -1,19 +1,6 @@
 import apiClient, { type ApiError } from './client';
 import type { LoginFormData, RegisterFormData, ChangePasswordFormData } from '../schemas/auth';
-
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  native_language?: string;
-  created_at: string;
-  updated_at: string;
-}
-
-export interface AuthResponse {
-  user: User;
-  token: string;
-}
+import type { User, AuthResponse } from '../types/types';
 
 // Auth API functions with better error handling
 export const authApi = {

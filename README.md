@@ -135,6 +135,7 @@ ipa_pronunciation_coach/
 │   │   ├── pages/          # Astro pages
 │   │   ├── stores/         # Pinia stores
 │   │   ├── types/          # TypeScript types
+│   │   │   └── shared/     # Shared types for frontend
 │   │   └── utils/          # Utility functions
 │   ├── astro.config.mjs
 │   └── package.json
