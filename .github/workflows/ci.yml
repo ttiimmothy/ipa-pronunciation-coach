@@ -19,12 +19,12 @@ jobs:
       #   cache: 'npm'
       #   cache-dependency-path: frontend/package-lock.json
     
-    - name: Verify package-lock.json exists
-      run: |
-        echo "Checking for package-lock.json in frontend directory:"
-        ls -la frontend/package-lock.json || echo "package-lock.json not found!"
-        echo "Contents of frontend directory:"
-        ls -la frontend/
+    # - name: Verify package-lock.json exists
+    #   run: |
+    #     echo "Checking for package-lock.json in frontend directory:"
+    #     ls -la frontend/package-lock.json || echo "package-lock.json not found!"
+    #     echo "Contents of frontend directory:"
+    #     ls -la frontend/
     
     - name: Install dependencies
       working-directory: frontend
@@ -115,13 +115,14 @@ jobs:
     
     - name: Run tests
       working-directory: backend
-      run: |
-        echo "Current directory: $(pwd)"
-        echo "Contents:"
-        ls -la
-        echo "Migrations directory:"
-        ls -la migrations/ || echo "Migrations directory not found"
-        cargo test
+      # run: |
+      #   echo "Current directory: $(pwd)"
+      #   echo "Contents:"
+      #   ls -la
+      #   echo "Migrations directory:"
+      #   ls -la migrations/ || echo "Migrations directory not found"
+      #   cargo test
+      run: cargo test
     
     - name: Build
       working-directory: backend

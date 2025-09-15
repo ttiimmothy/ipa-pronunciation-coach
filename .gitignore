@@ -284,11 +284,6 @@ build/
 dist/
 out/
 
-# Package manager lock files (keep Cargo.lock for Rust)
-package-lock.json
-yarn.lock
-pnpm-lock.yaml
-
 # Local development files
 .local/
 local/
