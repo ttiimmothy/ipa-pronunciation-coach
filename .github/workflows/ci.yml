@@ -160,13 +160,13 @@ jobs:
         docker-compose up -d postgres redis minio meilisearch
         sleep 30
     
-    - name: Run E2E tests
+    - name: Run e2e tests
       run: |
         cd frontend
         npm run test:e2e
     
     - name: Upload test results
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       if: always()
       with:
         name: playwright-report
