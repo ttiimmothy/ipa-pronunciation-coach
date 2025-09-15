@@ -1,0 +1,113 @@
+---
+export interface Props {
+  title: string;
+  description?: string;
+  showNav?: boolean;
+}
+
+const { title, description = "IPA Pronunciation Coach - Master English pronunciation with AI-powered feedback", showNav = true } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen bg-gray-50 dark:bg-gray-900">
+    {showNav && (
+      <nav class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="flex justify-between h-16">
+            <div class="flex items-center">
+              <a href="/" class="flex-shrink-0 flex items-center">
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                  <span class="text-white font-bold text-lg">IPA</span>
+                </div>
+                <span class="ml-2 text-xl font-bold text-gray-900 dark:text-white">Pronunciation Coach</span>
+              </a>
+            </div>
+            
+            <div class="hidden md:flex items-center space-x-8">
+              <a href="/dashboard" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                Dashboard
+              </a>
+              <a href="/practice" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                Practice
+              </a>
+              <a href="/vocab" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                Vocabulary
+              </a>
+              <a href="/progress" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                Progress
+              </a>
+              <a href="/settings" class="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                Settings
+              </a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+              <div id="dark-mode-toggle"></div>
+              <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
+                Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+    )}
+    
+    <main class="flex-1">
+      <slot />
+    </main>
+    
+    <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-12">
+      <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div class="text-center text-gray-500 dark:text-gray-400">
+          <p>&copy; 2024 IPA Pronunciation Coach. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<script>
+import { createApp } from 'vue';
+import DarkModeToggle from '../components/DarkModeToggle.vue';
+
+// Mount dark mode toggle
+document.addEventListener('DOMContentLoaded', () => {
+  const toggleContainer = document.getElementById('dark-mode-toggle');
+  if (toggleContainer) {
+    const app = createApp(DarkModeToggle);
+    app.mount(toggleContainer);
+  }
+});
+</script>
+
+<style is:global>
+  html {
+    font-family: system-ui, sans-serif;
+  }
+  
+  code {
+    font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+      Bitstream Vera Sans Mono, Courier New, monospace;
+  }
+  
+  .gradient-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  }
+  
+  .card-hover {
+    transition: all 0.3s ease;
+  }
+  
+  .card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+</style>

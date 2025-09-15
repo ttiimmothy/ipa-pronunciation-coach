@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@iconify/json": "^2.2.384",
+    "unplugin-icons": "^22.3.0"
+  }
+}

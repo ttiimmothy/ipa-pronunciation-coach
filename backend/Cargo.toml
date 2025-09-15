@@ -1,0 +1,73 @@
+[package]
+name = "ipa-backend"
+version = "0.1.0"
+edition = "2021"
+default-run = "ipa-backend"
+
+[dependencies]
+# Web framework
+axum = { version = "0.7", features = ["ws", "macros"] }
+tower = "0.4"
+tower-http = { version = "0.5", features = ["cors", "compression-br", "compression-gzip", "trace"] }
+hyper = { version = "1.0", features = ["full"] }
+tokio = { version = "1.0", features = ["full"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Environment variables
+dotenvy = "0.15"
+
+# Database
+sqlx = { version = "0.8", features = ["runtime-tokio-rustls", "postgres", "uuid", "chrono", "json", "migrate"] }
+
+# Authentication
+jsonwebtoken = "9.2"
+argon2 = "0.5"
+axum-extra = { version = "0.9", features = ["typed-header"] }
+
+# WebSocket
+tokio-tungstenite = "0.21"
+
+# Redis
+deadpool-redis = "0.14"
+
+# HTTP client
+reqwest = { version = "0.11", features = ["json"] }
+
+# S3/MinIO
+aws-sdk-s3 = "1.0"
+
+# Search
+meilisearch-sdk = "0.25"
+
+# Audio processing
+hound = "3.5"
+audrey = "0.3"
+realfft = "3.3"
+rustfft = "6.1"
+
+# Utilities
+uuid = { version = "1.0", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+time = "0.3"
+thiserror = "1.0"
+anyhow = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+rust_decimal = { version = "1.32", features = ["serde"] }
+
+# Background jobs
+redis = { version = "0.25", features = ["aio", "tokio-comp"] }
+
+[[bin]]
+name = "seed"
+path = "src/bin/seed.rs"
+
+[[bin]]
+name = "worker"
+path = "src/bin/worker.rs"
+
+[dev-dependencies]
+tokio-test = "0.4"

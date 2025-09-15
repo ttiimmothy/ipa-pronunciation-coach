@@ -1,0 +1,100 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.vue';
+---
+
+<Layout title="IPA Pronunciation Coach" showNav={false}>
+  <!-- Hero Section -->
+  <section class="gradient-bg text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+      <div class="text-center">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">
+          Master English Pronunciation
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 text-blue-100">
+          AI-powered feedback to perfect your pronunciation with IPA phonetics
+        </p>
+        <div class="space-x-4">
+          <a href="/login" class="bg-white text-blue-600 hover:bg-gray-100 font-bold py-4 px-8 rounded-lg text-lg transition-colors inline-block">
+            Get Started
+          </a>
+          <a href="/register" class="border-2 border-white text-white hover:bg-white hover:text-blue-600 font-bold py-4 px-8 rounded-lg text-lg transition-colors inline-block">
+            Sign Up Free
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-20 bg-white dark:bg-gray-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          Why Choose Our Platform?
+        </h2>
+        <p class="text-xl text-gray-600 dark:text-gray-300">
+          Advanced technology meets personalized learning
+        </p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center card-hover bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
+          <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Icon name="heroicons:microphone" class="w-8 h-8 text-blue-600" client:load />
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            AI-Powered Analysis
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            Get instant feedback on your pronunciation using advanced speech recognition and phonetic analysis.
+          </p>
+        </div>
+        
+        <div class="text-center card-hover bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
+          <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Icon name="heroicons:chart-bar" class="w-8 h-8 text-green-600" client:load />
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            Progress Tracking
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            Monitor your improvement with detailed analytics and personalized learning paths.
+          </p>
+        </div>
+        
+        <div class="text-center card-hover bg-white dark:bg-gray-800 p-8 rounded-xl shadow-lg">
+          <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4">
+            <Icon name="heroicons:book-open" class="w-8 h-8 text-purple-600" client:load />
+          </div>
+          <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+            Comprehensive Vocabulary
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            Practice with thousands of words, organized by difficulty and phonetic patterns.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+      <h2 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+        Ready to Improve Your Pronunciation?
+      </h2>
+      <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">
+        Join thousands of learners who have already improved their English pronunciation with our platform.
+      </p>
+      <div class="space-x-4">
+        <a href="/register" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors inline-block">
+          Start Learning Today
+        </a>
+        <a href="/login" class="border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-bold py-4 px-8 rounded-lg text-lg transition-colors inline-block">
+          Sign In
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
