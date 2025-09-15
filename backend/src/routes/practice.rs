@@ -7,7 +7,7 @@ use axum::{
 
 use crate::config::Config;
 use crate::db::DbPool;
-use crate::models::{ScoreRequest, ScoreResponse, UsageTick, TimeCapSettings};
+use crate::models::{ScoreRequest, ScoreResponse, TimeCapSettings, UsageTick};
 
 pub fn router() -> Router<(DbPool, Config)> {
     Router::new()

@@ -1,20 +1,15 @@
 use anyhow::Result;
-use axum::{
-    body::Body,
-    http::Request,
-    Router,
-};
+use axum::{body::Body, http::Request, routing::get, Router};
 use sqlx::PgPool;
 
 use ipa_backend::config::Config;
 use ipa_backend::db::create_pool;
-use ipa_backend::routes::router;
 
 /// Create a test application
 pub async fn create_test_app() -> Result<Router> {
     // Load test configuration
     let config = Config {
-        database_url: "postgres://postgres:postgres@localhost:5432/ipa_test".to_string(),
+        database_url: "postgres://myuser:mysecretpassword@localhost:5432/ipa_test".to_string(),
         jwt_secret: "test_secret".to_string(),
         s3_endpoint: "http://localhost:9000".to_string(),
         s3_bucket: "test-bucket".to_string(),
@@ -24,19 +19,27 @@ pub async fn create_test_app() -> Result<Router> {
         redis_url: "redis://localhost:6379/1".to_string(),
         meilisearch_url: "http://localhost:7700".to_string(),
         meilisearch_key: "test_key".to_string(),
-        client_url: "http://localhost:4321".to_string(),
         allow_dev_google_sso: false,
     };
-    
+
     // Create database pool
     let pool = create_pool(&config.database_url).await?;
-    
+
     // Run migrations
     sqlx::migrate!("./migrations").run(&pool).await?;
-    
+
     // Create app
-    let app = router().with_state((pool, config));
-    
+    let app = Router::new()
+        .route("/health", get(|| async { "OK" }))
+        .nest("/api/auth", ipa_backend::routes::auth::router())
+        .nest("/api/vocab", ipa_backend::routes::vocab::router())
+        .nest("/api/practice", ipa_backend::routes::practice::router())
+        .nest("/api/logs", ipa_backend::routes::logs::router())
+        .nest("/api/media", ipa_backend::routes::media::router())
+        .nest("/api/live", ipa_backend::routes::live::router())
+        .nest("/api/ws", ipa_backend::routes::ws::router())
+        .with_state((pool, config));
+
     Ok(app)
 }
 
@@ -54,12 +57,12 @@ pub fn create_test_request(uri: &str, method: &str, body: Option<Body>) -> Reque
 /// Setup test database
 #[allow(dead_code)]
 pub async fn setup_test_db() -> Result<PgPool> {
-    let database_url = "postgres://postgres:postgres@localhost:5432/ipa_test";
+    let database_url = "postgres://myuser:mysecretpassword@localhost:5432/ipa_test";
     let pool = create_pool(database_url).await?;
-    
+
     // Run migrations
     sqlx::migrate!("./migrations").run(&pool).await?;
-    
+
     Ok(pool)
 }
 
@@ -70,6 +73,6 @@ pub async fn cleanup_test_db(pool: &PgPool) -> Result<()> {
     sqlx::query("DROP SCHEMA public CASCADE; CREATE SCHEMA public;")
         .execute(pool)
         .await?;
-    
+
     Ok(())
 }

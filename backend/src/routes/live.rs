@@ -7,7 +7,7 @@ use axum::{
 
 use crate::config::Config;
 use crate::db::DbPool;
-use crate::models::{CreateRoom, RoomResponse, InviteRequest};
+use crate::models::{CreateRoom, InviteRequest, RoomResponse};
 
 pub fn router() -> Router<(DbPool, Config)> {
     Router::new()

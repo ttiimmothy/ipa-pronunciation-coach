@@ -1,16 +1,10 @@
-use axum::{
-    extract::State,
-    response::Json,
-    routing::post,
-    Router,
-};
+use axum::{extract::State, response::Json, routing::post, Router};
 
 use crate::config::Config;
 use crate::db::DbPool;
 
 pub fn router() -> Router<(DbPool, Config)> {
-    Router::new()
-        .route("/recordings", post(upload_recording))
+    Router::new().route("/recordings", post(upload_recording))
 }
 
 async fn upload_recording(

@@ -34,12 +34,12 @@ async fn register(
     }
 
     // Hash password
-    let pass_hash = hash_password(&payload.password)
-        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+    let pass_hash =
+        hash_password(&payload.password).map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
     // Create user
     let user = sqlx::query_as::<_, User>(
-        "INSERT INTO users (email, pass_hash, name, dialect) VALUES ($1, $2, $3, $4) RETURNING *"
+        "INSERT INTO users (email, pass_hash, name, dialect) VALUES ($1, $2, $3, $4) RETURNING *",
     )
     .bind(&payload.email)
     .bind(&pass_hash)
@@ -50,13 +50,10 @@ async fn register(
     .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
     // Create JWT
-    let access_token = create_jwt(user.id, &config.jwt_secret)
-        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+    let access_token =
+        create_jwt(user.id, &config.jwt_secret).map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
-    Ok(Json(AuthResponse {
-        access_token,
-        user,
-    }))
+    Ok(Json(AuthResponse { access_token, user }))
 }
 
 async fn login(
@@ -73,18 +70,16 @@ async fn login(
 
     // Verify password
     if !verify_password(&payload.password, &user.pass_hash)
-        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)? {
+        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?
+    {
         return Err(StatusCode::UNAUTHORIZED);
     }
 
     // Create JWT
-    let access_token = create_jwt(user.id, &config.jwt_secret)
-        .map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
+    let access_token =
+        create_jwt(user.id, &config.jwt_secret).map_err(|_| StatusCode::INTERNAL_SERVER_ERROR)?;
 
-    Ok(Json(AuthResponse {
-        access_token,
-        user,
-    }))
+    Ok(Json(AuthResponse { access_token, user }))
 }
 
 async fn get_me(

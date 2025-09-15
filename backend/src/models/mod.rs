@@ -1,14 +1,14 @@
 use serde::{Deserialize, Serialize};
 
+pub mod live;
+pub mod practice;
 pub mod user;
 pub mod word;
-pub mod practice;
-pub mod live;
 
+pub use live::*;
+pub use practice::*;
 pub use user::*;
 pub use word::*;
-pub use practice::*;
-pub use live::*;
 
 #[derive(Debug, Clone, Serialize, Deserialize, sqlx::Type)]
 #[sqlx(type_name = "dialect", rename_all = "UPPERCASE")]

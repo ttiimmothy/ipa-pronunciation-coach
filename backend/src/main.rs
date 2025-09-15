@@ -37,10 +37,10 @@ async fn main() -> anyhow::Result<()> {
 
     // Load configuration
     let config = Config::from_env()?;
-    
+
     // Create database pool
     let pool = create_pool(&config.database_url).await?;
-    
+
     // Run migrations
     sqlx::migrate!("./migrations").run(&pool).await?;
 
@@ -50,7 +50,7 @@ async fn main() -> anyhow::Result<()> {
     // Start server
     let addr = SocketAddr::from(([0, 0, 0, 0], 8787));
     tracing::info!("Server listening on {}", addr);
-    
+
     let listener = tokio::net::TcpListener::bind(&addr).await?;
     axum::serve(listener, app).await?;
 
@@ -78,7 +78,7 @@ async fn create_app(pool: PgPool, config: Config) -> anyhow::Result<Router> {
         .layer(
             ServiceBuilder::new()
                 .layer(TraceLayer::new_for_http())
-                .layer(cors)
+                .layer(cors),
         )
         .with_state((pool, config))
         .layer(DefaultBodyLimit::max(50 * 1024 * 1024)); // 50MB limit for audio uploads

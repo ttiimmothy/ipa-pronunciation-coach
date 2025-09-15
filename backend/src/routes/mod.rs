@@ -1,13 +1,13 @@
-use axum::Router;
-use crate::db::DbPool;
 use crate::config::Config;
+use crate::db::DbPool;
+use axum::Router;
 
 pub mod auth;
-pub mod vocab;
-pub mod practice;
+pub mod live;
 pub mod logs;
 pub mod media;
-pub mod live;
+pub mod practice;
+pub mod vocab;
 pub mod ws;
 
 #[allow(dead_code)]

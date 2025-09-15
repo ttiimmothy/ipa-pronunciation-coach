@@ -19,20 +19,22 @@ async fn main() -> Result<()> {
 
     // Load configuration
     let config = Config::from_env()?;
-    
+
     // Create database pool
     let pool = create_pool(&config.database_url).await?;
-    
+
     // Create and start job worker
     let mut worker = JobWorker::new(&config.redis_url, pool)?;
-    
+
     // Handle shutdown signal
     tokio::spawn(async {
-        tokio::signal::ctrl_c().await.expect("Failed to listen for ctrl+c");
+        tokio::signal::ctrl_c()
+            .await
+            .expect("Failed to listen for ctrl+c");
         tracing::info!("Shutdown signal received");
         std::process::exit(0);
     });
-    
+
     // Start the worker
     worker.start().await?;
 

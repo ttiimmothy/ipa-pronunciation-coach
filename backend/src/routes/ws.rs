@@ -9,8 +9,7 @@ use crate::config::Config;
 use crate::db::DbPool;
 
 pub fn router() -> Router<(DbPool, Config)> {
-    Router::new()
-        .route("/", get(websocket_handler))
+    Router::new().route("/", get(websocket_handler))
 }
 
 async fn websocket_handler(
