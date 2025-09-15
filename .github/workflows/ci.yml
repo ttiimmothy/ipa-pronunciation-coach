@@ -48,7 +48,8 @@ jobs:
     
     - name: Test
       working-directory: frontend
-      run: npm run test
+      # run: npm run test
+      run: npm run test:run
     
     - name: Build
       working-directory: frontend
@@ -126,7 +127,8 @@ jobs:
     
     - name: Build
       working-directory: backend
-      run: cargo build --release
+      # run: cargo build --release
+      run: cargo build
 
   e2e-testing:
     runs-on: ubuntu-latest

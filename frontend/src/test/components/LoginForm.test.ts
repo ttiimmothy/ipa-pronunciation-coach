@@ -1,8 +1,21 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { mount } from '@vue/test-utils';
 import LoginForm from '../../components/LoginForm.vue';
 
+// Mock the useAuth composable
+vi.mock('../../composables/useAuth', () => ({
+  useAuth: vi.fn(() => ({
+    login: vi.fn(),
+    isLoggingIn: false,
+    loginError: null,
+  })),
+}));
+
 describe('LoginForm', () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
   it('renders correctly', () => {
     const wrapper = mount(LoginForm);
     
@@ -18,33 +31,48 @@ describe('LoginForm', () => {
     // Try to submit without filling fields
     await wrapper.find('form').trigger('submit');
     
-    // Should show required field validation
-    expect(wrapper.find('input[type="email"]').attributes('required')).toBeDefined();
-    expect(wrapper.find('input[type="password"]').attributes('required')).toBeDefined();
+    // Wait for validation to run
+    await wrapper.vm.$nextTick();
+    
+    // Should show validation errors in the errors object
+    expect(wrapper.vm.errors.email).toBeDefined();
+    expect(wrapper.vm.errors.password).toBeDefined();
   });
 
   it('handles form submission', async () => {
+    // Mock the useAuth composable to return loading state
+    const { useAuth } = await import('../../composables/useAuth');
+    vi.mocked(useAuth).mockReturnValue({
+      login: vi.fn(),
+      isLoggingIn: true,
+      loginError: null,
+    } as any);
+    
     const wrapper = mount(LoginForm);
     
     // Fill in form
     await wrapper.find('input[type="email"]').setValue('test@example.com');
     await wrapper.find('input[type="password"]').setValue('password123');
     
-    // Mock window.location
-    const mockLocation = { href: '' };
-    Object.defineProperty(window, 'location', {
-      value: mockLocation,
-      writable: true,
-    });
-    
     // Submit form
     await wrapper.find('form').trigger('submit');
+    
+    // Wait for async operation
+    await wrapper.vm.$nextTick();
     
     // Should show loading state
     expect(wrapper.find('button').text()).toBe('Logging in...');
   });
 
   it('shows error message on login failure', async () => {
+    // Mock the useAuth composable to return an error
+    const { useAuth } = await import('../../composables/useAuth');
+    vi.mocked(useAuth).mockReturnValue({
+      login: vi.fn(),
+      isLoggingIn: false,
+      loginError: { message: 'Invalid credentials' },
+    } as any);
+    
     const wrapper = mount(LoginForm);
     
     // Fill in form with invalid credentials

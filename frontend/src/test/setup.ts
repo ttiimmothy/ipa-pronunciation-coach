@@ -1,5 +1,14 @@
 import { vi } from 'vitest';
 
+// Mock MediaStream
+global.MediaStream = vi.fn().mockImplementation(() => ({
+  getTracks: vi.fn(() => []),
+  addTrack: vi.fn(),
+  removeTrack: vi.fn(),
+  getAudioTracks: vi.fn(() => []),
+  getVideoTracks: vi.fn(() => []),
+}));
+
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -57,3 +66,31 @@ Object.defineProperty(navigator, 'mediaDevices', {
     getUserMedia: vi.fn(() => Promise.resolve(new MediaStream())),
   },
 });
+
+// Mock Icon component globally
+vi.mock('../components/Icon.vue', () => ({
+  default: {
+    name: 'Icon',
+    template: '<i :class="iconClass" />',
+    props: ['name', 'class'],
+    computed: {
+      iconClass() {
+        return `i-${this.name}`;
+      },
+    },
+  },
+}));
+
+// Mock unplugin-icons
+vi.mock('unplugin-icons/vue', () => ({
+  default: () => ({
+    name: 'Icon',
+    template: '<i :class="iconClass" />',
+    props: ['name', 'class'],
+    computed: {
+      iconClass() {
+        return `i-${this.name}`;
+      },
+    },
+  }),
+}));

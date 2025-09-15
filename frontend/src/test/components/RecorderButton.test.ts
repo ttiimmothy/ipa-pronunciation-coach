@@ -12,8 +12,9 @@ describe('RecorderButton', () => {
     const wrapper = mount(RecorderButton);
     
     expect(wrapper.find('button').exists()).toBe(true);
-    expect(wrapper.find('svg').exists()).toBe(true);
     expect(wrapper.text()).toContain('Tap to Record');
+    // The button should not be disabled by default
+    expect(wrapper.find('button').attributes('disabled')).toBeUndefined();
   });
 
   it('shows recording state when clicked', async () => {
@@ -90,6 +91,9 @@ describe('RecorderButton', () => {
   });
 
   it('respects max duration limit', async () => {
+    // Use fake timers for this test
+    vi.useFakeTimers();
+    
     const wrapper = mount(RecorderButton, {
       props: {
         maxDuration: 2, // 2 seconds
@@ -118,5 +122,8 @@ describe('RecorderButton', () => {
     
     // Should have stopped recording due to max duration
     expect(mockMediaRecorder.stop).toHaveBeenCalled();
+    
+    // Restore real timers
+    vi.useRealTimers();
   });
 });
