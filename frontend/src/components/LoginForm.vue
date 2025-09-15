@@ -62,15 +62,15 @@ import { z } from 'zod';
 // Mock auth functions for SSR compatibility
 const isLoggingIn = ref(false);
 const loginError = ref(null);
-let login: (data: LoginFormData) => Promise<void> = async () => {};
+let login: (data: LoginFormData) => void = () => {};
 
 onMounted(async () => {
   // Dynamically import auth composable only on client side
   const { useAuth } = await import('../composables/useAuth');
-  const auth = useAuth();
-  login = auth.login;
-  isLoggingIn.value = auth.isLoggingIn.value;
-  loginError.value = auth.loginError.value;
+  const {login: authLogin, isLoggingIn: authIsLoggingIn, loginError: authLoginError} = useAuth();
+  login = authLogin
+  isLoggingIn.value = authIsLoggingIn;
+  loginError.value = authLoginError;
 });
 
 const formData = reactive<LoginFormData>({

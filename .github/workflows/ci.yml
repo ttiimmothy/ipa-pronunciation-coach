@@ -7,18 +7,36 @@ on:
     branches: [ main, production ]
 
 jobs:
-  frontend:
-    name: frontend-build
+  frontend-build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v5
     
     - name: Setup Node.js
       uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm'
+        cache-dependency-path: frontend/package-lock.json
+    
+    - name: Verify package-lock.json exists
+      run: |
+        echo "Checking for package-lock.json in frontend directory:"
+        ls -la frontend/package-lock.json || echo "package-lock.json not found!"
+        echo "Contents of frontend directory:"
+        ls -la frontend/
     
     - name: Install dependencies
       working-directory: frontend
       run: npm ci
+      # run: |
+      #   if [ -f package-lock.json ]; then
+      #     echo "package-lock.json found, running npm ci"
+      #     npm ci
+      #   else
+      #     echo "package-lock.json not found, running npm install"
+      #     npm install
+      #   fi
     
     - name: Lint
       working-directory: frontend
@@ -36,8 +54,7 @@ jobs:
       working-directory: frontend
       run: npm run build
 
-  backend:
-    name: backend-build
+  backend-build:
     runs-on: ubuntu-latest
     
     services:
@@ -104,16 +121,19 @@ jobs:
       working-directory: backend
       run: cargo build --release
 
-  e2e:
-    name: e2e-testing
+  e2e-testing:
     runs-on: ubuntu-latest
-    needs: [frontend, backend]
+    needs: [frontend-build, backend-build]
     
     steps:
     - uses: actions/checkout@v5
     
     - name: Setup Node.js
       uses: actions/setup-node@v4
+      # with:
+      #   node-version: '20'
+      #   cache: 'npm'
+      #   cache-dependency-path: frontend/package-lock.json
     
     - name: Install dependencies
       run: |

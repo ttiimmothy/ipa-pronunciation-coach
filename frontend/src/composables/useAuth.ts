@@ -1,7 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/vue-query';
-import { authApi, type LoginFormData, type RegisterFormData, type ChangePasswordFormData } from '../api/auth';
+import { authApi } from '../api/auth';
 import { useAuthStore } from '../stores/auth';
 import type { ApiError } from '../api/client';
+import {ChangePasswordFormData, LoginFormData, RegisterFormData} from "../schemas/auth";
 
 export const useAuth = () => {
   const authStore = useAuthStore();
