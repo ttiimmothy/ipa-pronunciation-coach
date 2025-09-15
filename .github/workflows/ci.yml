@@ -157,7 +157,7 @@ jobs:
     - name: Start services
       run: |
         cd backend
-        docker-compose up -d postgres redis minio meilisearch
+        docker compose up -d postgres redis minio meilisearch
         sleep 30
     
     - name: Run e2e tests
