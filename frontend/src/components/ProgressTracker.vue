@@ -185,6 +185,7 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
+import Icon from "./Icon.vue"
 
 const totalPracticeTime = ref('24h 30m');
 const currentStreak = ref(12);

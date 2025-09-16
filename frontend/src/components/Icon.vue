@@ -1,34 +1,42 @@
 <template>
-  <i :class="[iconClass, props.class]" />
+  <component :is="iconComponent" :class="props.class" />
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import IconSun from '~icons/heroicons/sun';
+import IconMoon from '~icons/heroicons/moon';
+import IconClock from '~icons/heroicons/clock';
+import IconChartBar from '~icons/heroicons/chart-bar';
+import IconCheckCircle from '~icons/heroicons/check-circle';
+import IconStar from '~icons/heroicons/star';
+import IconPlay from '~icons/heroicons/play';
+import IconBookOpen from '~icons/heroicons/book-open';
+import IconMicrophone from '~icons/heroicons/microphone';
+import IconStop from '~icons/heroicons/stop';
+import IconPlus from '~icons/heroicons/plus';
 
 const props = defineProps<{
   name: string;
   class?: string;
 }>();
 
-const iconClass = computed(() => {
-  // Map icon names to their CSS classes
-  const iconMap: Record<string, string> = {
-    'heroicons:sun': 'i-heroicons-sun',
-    'heroicons:moon': 'i-heroicons-moon',
-    'heroicons:clock': 'i-heroicons-clock',
-    'heroicons:chart-bar': 'i-heroicons-chart-bar',
-    'heroicons:check-circle': 'i-heroicons-check-circle',
-    'heroicons:star': 'i-heroicons-star',
-    'heroicons:play': 'i-heroicons-play',
-    'heroicons:book-open': 'i-heroicons-book-open',
-    'heroicons:chart-bar-square': 'i-heroicons-chart-bar-square',
-    'heroicons:cog-6-tooth': 'i-heroicons-cog-6-tooth',
-    'heroicons:arrow-trending-up': 'i-heroicons-arrow-trending-up',
-    'heroicons:microphone': 'i-heroicons-microphone',
-    'heroicons:stop': 'i-heroicons-stop',
-    'heroicons:plus': 'i-heroicons-plus',
+const iconComponent = computed(() => {
+  // Map icon names to their unplugin-icons components
+  const iconMap: Record<string, any> = {
+    'heroicons:sun': IconSun,
+    'heroicons:moon': IconMoon,
+    'heroicons:clock': IconClock,
+    'heroicons:chart-bar': IconChartBar,
+    'heroicons:check-circle': IconCheckCircle,
+    'heroicons:star': IconStar,
+    'heroicons:play': IconPlay,
+    'heroicons:book-open': IconBookOpen,
+    'heroicons:microphone': IconMicrophone,
+    'heroicons:stop': IconStop,
+    'heroicons:plus': IconPlus,
   };
   
-  return iconMap[props.name] || props.name;
+  return iconMap[props.name] || IconClock;
 });
 </script>

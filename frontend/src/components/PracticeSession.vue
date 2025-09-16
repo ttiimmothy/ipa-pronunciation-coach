@@ -142,14 +142,19 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import Icon from './Icon.vue';
 
-const currentWord = ref(null);
+const currentWord = ref<{word: string, ipa: string, definition: string} | null>(null);
 const currentWordIndex = ref(0);
 const totalWords = ref(10);
 const isRecording = ref(false);
 const isProcessing = ref(false);
-const currentScore = ref(null);
-const feedback = ref(null);
+const currentScore = ref<number | null>(null);
+const feedback = ref<{
+  overallScore: number;
+  phonemeScores: Record<string, number>;
+  suggestions: string[];
+} | null>(null);
 
 // Mock data for demonstration
 const practiceWords = [

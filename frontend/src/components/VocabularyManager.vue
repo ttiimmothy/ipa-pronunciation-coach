@@ -155,11 +155,12 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue';
+import Icon from './Icon.vue';
 
 const searchQuery = ref('');
 const selectedDifficulty = ref('');
 const selectedCategory = ref('');
-const selectedTags = ref([]);
+const selectedTags = ref<any[]>([]);
 const currentPage = ref(1);
 const itemsPerPage = 12;
 
@@ -275,7 +276,7 @@ const visiblePages = computed(() => {
   return pages;
 });
 
-const getDifficultyClass = (difficulty) => {
+const getDifficultyClass = (difficulty: any) => {
   switch (difficulty) {
     case 'beginner':
       return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
@@ -288,7 +289,7 @@ const getDifficultyClass = (difficulty) => {
   }
 };
 
-const toggleTag = (tag) => {
+const toggleTag = (tag: any) => {
   const index = selectedTags.value.indexOf(tag);
   if (index > -1) {
     selectedTags.value.splice(index, 1);
@@ -297,12 +298,12 @@ const toggleTag = (tag) => {
   }
 };
 
-const playAudio = (word) => {
+const playAudio = (word:any) => {
   // TODO: Implement audio playback
   console.log('Playing audio for:', word.word);
 };
 
-const addToPractice = (word) => {
+const addToPractice = (word:any) => {
   // TODO: Add word to practice list
   console.log('Adding to practice:', word.word);
 };
@@ -319,7 +320,7 @@ const nextPage = () => {
   }
 };
 
-const goToPage = (page) => {
+const goToPage = (page:any) => {
   currentPage.value = page;
 };
 

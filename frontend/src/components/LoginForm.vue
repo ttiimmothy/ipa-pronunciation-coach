@@ -55,13 +55,14 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, onMounted, ref } from 'vue';
+import { reactive, onMounted, ref, watchEffect } from 'vue';
 import { loginSchema, type LoginFormData } from '../schemas/auth';
 import { z } from 'zod';
+import {ApiError} from "../api/client";
 
 // Mock auth functions for SSR compatibility
 const isLoggingIn = ref(false);
-const loginError = ref(null);
+const loginError = ref<ApiError | null>(null);
 let login: (data: LoginFormData) => void = () => {};
 
 onMounted(async () => {
@@ -69,8 +70,14 @@ onMounted(async () => {
   const { useAuth } = await import('../composables/useAuth');
   const {login: authLogin, isLoggingIn: authIsLoggingIn, loginError: authLoginError} = useAuth();
   login = authLogin
-  isLoggingIn.value = authIsLoggingIn;
-  loginError.value = authLoginError;
+  // Make isLoggingIn reactive to the auth composable's isLoggingIn
+  watchEffect(() => {
+    isLoggingIn.value = authIsLoggingIn;
+  });
+  // Make loginError reactive to the auth composable's loginError
+  watchEffect(() => {
+    loginError.value = authLoginError;
+  });
 });
 
 const formData = reactive<LoginFormData>({

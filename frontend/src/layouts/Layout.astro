@@ -1,4 +1,6 @@
 ---
+import DarkModeToggle from '../components/DarkModeToggle.vue';
+
 export interface Props {
   title: string;
   description?: string;
@@ -6,6 +8,7 @@ export interface Props {
 }
 
 const { title, description = "IPA Pronunciation Coach - Master English pronunciation with AI-powered feedback", showNav = true } = Astro.props;
+const currentYear = new Date().getFullYear();
 ---
 
 <!DOCTYPE html>
@@ -50,7 +53,7 @@ const { title, description = "IPA Pronunciation Coach - Master English pronuncia
             </div>
             
             <div class="flex items-center space-x-4">
-              <div id="dark-mode-toggle"></div>
+              <DarkModeToggle client:load />
               <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
                 Logout
               </button>
@@ -67,26 +70,13 @@ const { title, description = "IPA Pronunciation Coach - Master English pronuncia
     <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 mt-12">
       <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
         <div class="text-center text-gray-500 dark:text-gray-400">
-          <p>&copy; 2024 IPA Pronunciation Coach. All rights reserved.</p>
+          <p>&copy; {currentYear} IPA Pronunciation Coach. All rights reserved.</p>
         </div>
       </div>
     </footer>
   </body>
 </html>
 
-<script>
-import { createApp } from 'vue';
-import DarkModeToggle from '../components/DarkModeToggle.vue';
-
-// Mount dark mode toggle
-document.addEventListener('DOMContentLoaded', () => {
-  const toggleContainer = document.getElementById('dark-mode-toggle');
-  if (toggleContainer) {
-    const app = createApp(DarkModeToggle);
-    app.mount(toggleContainer);
-  }
-});
-</script>
 
 <style is:global>
   html {

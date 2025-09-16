@@ -153,6 +153,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
+import Icon from './Icon.vue';
 
 // Mock data for SSR compatibility
 const user = ref({
