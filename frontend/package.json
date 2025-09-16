@@ -15,7 +15,7 @@
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:debug": "playwright test --debug",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
-    "type-check": "astro check"
+    "typecheck": "astro check"
   },
   "dependencies": {
     "@astrojs/tailwind": "^6.0.2",

@@ -21,6 +21,14 @@ const currentYear = new Date().getFullYear();
     <title>{title}</title>
   </head>
   <body class="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <!-- Loading screen to prevent flash -->
+    <div id="app-loading" class="fixed inset-0 bg-gray-50 dark:bg-gray-900 z-50 flex items-center justify-center">
+      <div class="text-center">
+        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p class="text-gray-600 dark:text-gray-400">Loading...</p>
+      </div>
+    </div>
+    
     {showNav && (
       <nav class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -100,4 +108,39 @@ const currentYear = new Date().getFullYear();
     transform: translateY(-2px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   }
+  
+  /* Ensure loading screen covers everything */
+  #app-loading {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    z-index: 9999 !important;
+  }
 </style>
+
+<script>
+  // Hide loading screen once everything is ready
+  function hideLoading() {
+    const loading = document.getElementById('app-loading');
+    if (loading) {
+      loading.style.opacity = '0';
+      loading.style.transition = 'opacity 0.3s ease-out';
+      setTimeout(() => {
+        loading.remove();
+      }, 300);
+    }
+  }
+
+  // Wait for DOM and Vue hydration
+  document.addEventListener('DOMContentLoaded', () => {
+    // Wait for Vue components to fully hydrate
+    setTimeout(hideLoading, 200);
+  });
+  
+  // Fallback
+  window.addEventListener('load', () => {
+    setTimeout(hideLoading, 100);
+  });
+</script>

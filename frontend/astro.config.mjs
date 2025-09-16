@@ -20,6 +20,15 @@ export default defineConfig({
         compiler: 'vue3',
         autoInstall: true,
       })
-    ]
+    ],
+    ssr: {
+      noExternal: ['@vueuse/core']
+    }
+  },
+  build: {
+    inlineStylesheets: 'auto'
+  },
+  prefetch: {
+    prefetchAll: false
   }
 });
