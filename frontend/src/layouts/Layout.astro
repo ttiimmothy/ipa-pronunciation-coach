@@ -19,15 +19,26 @@ const currentYear = new Date().getFullYear();
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
+    <!-- Prevent dark-mode flash -->
+    <script is:inline>
+      (function () {
+        try {
+          const stored = localStorage.getItem('theme');
+          const prefers = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const theme = stored || (prefers ? 'dark' : 'light');
+          if (theme === 'dark') document.documentElement.classList.add('dark');
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body class="min-h-screen bg-gray-50 dark:bg-gray-900">
     <!-- Loading screen to prevent flash -->
-    <div id="app-loading" class="fixed inset-0 bg-gray-50 dark:bg-gray-900 z-50 flex items-center justify-center">
+    <!-- <div id="app-loading" class="fixed inset-0 bg-gray-50 dark:bg-gray-900 z-50 flex items-center justify-center">
       <div class="text-center">
         <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
         <p class="text-gray-600 dark:text-gray-400">Loading...</p>
       </div>
-    </div>
+    </div> -->
     
     {showNav && (
       <nav class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">

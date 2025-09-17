@@ -108,7 +108,7 @@ const {
 const { 
   stats: practiceStats, 
   isLoadingStats, 
-  error: statsError,
+  statsError,
   refetchStats 
 } = usePractice();
 
