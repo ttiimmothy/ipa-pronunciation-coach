@@ -33,6 +33,7 @@ pub struct Phoneme {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
+#[allow(dead_code)]
 pub struct WordPhoneme {
   pub word_id: Uuid,
   pub phoneme_id: Uuid,
