@@ -37,6 +37,7 @@ pub struct AuthResponse {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[allow(dead_code)]
 pub struct UpdateUser {
   pub name: Option<String>,
   pub dialect: Option<Dialect>,

@@ -58,6 +58,7 @@ pub struct WordWithVariants {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[allow(dead_code)]
 pub struct CreateWord {
   pub text: String,
   pub language: String,
@@ -67,6 +68,7 @@ pub struct CreateWord {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[allow(dead_code)]
 pub struct CreateDialectVariant {
   pub dialect: Dialect,
   pub ipa: String,
@@ -75,6 +77,7 @@ pub struct CreateDialectVariant {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[allow(dead_code)]
 pub struct VocabSearchQuery {
   pub query: Option<String>,
   pub dialect: Option<Dialect>,

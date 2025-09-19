@@ -5,6 +5,7 @@ use sqlx::FromRow;
 use uuid::Uuid;
 
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
+#[allow(dead_code)]
 pub struct PracticeSession {
   pub id: Uuid,
   pub user_id: Uuid,
@@ -14,6 +15,7 @@ pub struct PracticeSession {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
+#[allow(dead_code)]
 pub struct Recording {
   pub id: Uuid,
   pub user_id: Uuid,
@@ -26,6 +28,7 @@ pub struct Recording {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
+#[allow(dead_code)]
 pub struct Score {
   pub id: Uuid,
   pub recording_id: Uuid,
@@ -36,6 +39,7 @@ pub struct Score {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, FromRow)]
+#[allow(dead_code)]
 pub struct DailyUsage {
   pub user_id: Uuid,
   pub date: chrono::NaiveDate,
@@ -43,6 +47,7 @@ pub struct DailyUsage {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+#[allow(dead_code)]
 pub struct CreateRecording {
   pub word_id: Uuid,
   pub dialect: Dialect,
