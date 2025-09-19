@@ -1,0 +1,10 @@
+# Rustfmt configuration
+max_width = 100
+newline_style = "Unix"
+
+# This project uses 2-space indentation with nightly rustfmt
+# 
+# Commands:
+# - Format: make fmt or ./fmt.sh
+# - Check: make fmt-check or ./fmt-check.sh
+# - Standard check: cargo +nightly fmt -- --check --config indent_style=Block,tab_spaces=2

@@ -1,0 +1,3 @@
+#!/bin/bash
+# Custom cargo fmt check command that uses 2-space indentation
+exec cargo +nightly fmt -- --check --config indent_style=Block,tab_spaces=2 "$@"
