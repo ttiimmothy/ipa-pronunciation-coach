@@ -56,7 +56,7 @@ A comprehensive pronunciation learning platform that uses AI-powered feedback to
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com:ttiimmothy/ipa-pronunciation-coach.git
+git clone https://github.com/ttiimmothy/ipa-pronunciation-coach
 cd ipa-pronunciation-coach
 ```
 
