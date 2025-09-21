@@ -208,13 +208,12 @@ npm run test:e2e
 ```bash
 # Backend
 cd backend
-cargo fmt
+make fmt-check
 cargo clippy
 
 # Frontend
 cd frontend
 npm run lint
-npm run format
 ```
 
 ### Database Management
@@ -230,7 +229,7 @@ cargo run
 
 # Reset database
 cd backend
-docker-compose down -v
+docker-compose down
 docker-compose up -d postgres
 # Migrations will run automatically when you start the backend
 ```
