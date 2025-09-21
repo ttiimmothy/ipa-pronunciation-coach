@@ -56,7 +56,7 @@ A comprehensive pronunciation learning platform that uses AI-powered feedback to
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com:ttiimmothy/ipa-pronunciation-coach.git
+git clone https://github.com/ttiimmothy/ipa-pronunciation-coach
 cd ipa-pronunciation-coach
 ```
 
@@ -315,15 +315,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [TailwindCSS](https://tailwindcss.com/) for the utility-first CSS framework
 - [Meilisearch](https://www.meilisearch.com/) for the fast search engine
 - [PostgreSQL](https://www.postgresql.org/) for the reliable database
-
-## 📞 Support
-
-If you encounter any issues or have questions:
-
-1. Check the [Issues](https://github.com/your-org/ipa-pronunciation-coach/issues) page
-2. Create a new issue with detailed information
-3. Join our [Discord community](https://discord.gg/your-discord)
-
----
-
-**Happy Learning! 🎉**
