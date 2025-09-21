@@ -242,7 +242,7 @@ docker-compose up -d postgres
 ```bash
 # Start all services
 cd backend
-docker-compose up
+docker-compose up -d
 
 # Start specific services
 docker-compose up postgres redis minio meilisearch
@@ -256,7 +256,7 @@ docker-compose logs -f backend
 ```bash
 # Build and start production containers
 cd backend
-docker-compose -f docker-compose.prod.yml up -d
+docker-compose up -d
 
 # Scale services
 docker-compose up -d --scale backend=3
