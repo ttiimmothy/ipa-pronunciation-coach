@@ -208,13 +208,12 @@ npm run test:e2e
 ```bash
 # Backend
 cd backend
-cargo fmt
+make fmt-check
 cargo clippy
 
 # Frontend
 cd frontend
 npm run lint
-npm run format
 ```
 
 ### Database Management
@@ -230,7 +229,7 @@ cargo run
 
 # Reset database
 cd backend
-docker-compose down -v
+docker-compose down
 docker-compose up -d postgres
 # Migrations will run automatically when you start the backend
 ```
@@ -242,7 +241,7 @@ docker-compose up -d postgres
 ```bash
 # Start all services
 cd backend
-docker-compose up
+docker-compose up -d
 
 # Start specific services
 docker-compose up postgres redis minio meilisearch
@@ -256,7 +255,7 @@ docker-compose logs -f backend
 ```bash
 # Build and start production containers
 cd backend
-docker-compose -f docker-compose.prod.yml up -d
+docker-compose up -d
 
 # Scale services
 docker-compose up -d --scale backend=3
