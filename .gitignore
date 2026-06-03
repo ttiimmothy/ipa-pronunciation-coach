@@ -397,3 +397,4 @@ doc
 
 agents.md
 .antigravitycli
+*.zig*
